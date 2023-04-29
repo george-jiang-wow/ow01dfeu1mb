@@ -30,20 +30,22 @@ que=f.read().split("\n")
 for i in que:
     if i=='':
         break
-    got=r.get("https://www.luogu.com.cn/problem/solution/{}".format(i), headers=headers,cookies=cookies)
-    msg=got.text.split('window._feInjection = JSON.parse(decodeURIComponent("')[1].split('            window._feConfigVersion =')[0]
-    temp2=u.unquote(msg)
-    msg=temp2.split('},"acceptSolution":')[1].split('},"')[0]
-    t.sleep(0.9)#这行是最最关键的一句代码，千万千万不要删除！
-    got2=r.get("https://www.luogu.com.cn/problem/{}".format(i), headers=headers,cookies=cookies)
-    msg2=got2.text.split('window._feInjection = JSON.parse(decodeURIComponent("')[1].split('            window._feConfigVersion =')[0]
-    temp3=u.unquote(msg2)
-    if msg=="true":
-        data.append(["P",i,1,temp2.split('"difficulty":')[1].split(',')[0],temp3.split(',"tags":')[1].split(',"')[0].replace('"', '')])
+    try:
+        got=r.get("https://www.luogu.com.cn/problem/solution/{}".format(i), headers=headers,cookies=cookies)
+        msg=got.text.split('window._feInjection = JSON.parse(decodeURIComponent("')[1].split('            window._feConfigVersion =')[0]
+        temp2=u.unquote(msg)
+        msg=temp2.split('},"acceptSolution":')[1].split('},"')[0]
+        t.sleep(0.8)#这行是最最关键的一句代码，千万千万不要删除！
+        got2=r.get("https://www.luogu.com.cn/problem/{}".format(i), headers=headers,cookies=cookies)
+        msg2=got2.text.split('window._feInjection = JSON.parse(decodeURIComponent("')[1].split('            window._feConfigVersion =')[0]
+        temp3=u.unquote(msg2)
+        if msg=="true":
+            data.append(["P",i,1,temp2.split('"difficulty":')[1].split(',')[0],temp3.split(',"tags":')[1].split(',"')[0].replace('"', '')])
+        else:
+            data.append(["P",i,0,temp2.split('"difficulty":')[1].split(',')[0],temp3.split(',"tags":')[1].split(',"')[0].replace('"', '')])
+        t.sleep(0.8)#这行是最最关键的一句代码，千万千万不要删除！
+    except:
         print(i)
-    else:
-        data.append(["P",i,0,temp2.split('"difficulty":')[1].split(',')[0],temp3.split(',"tags":')[1].split(',"')[0].replace('"', '')])
-    t.sleep(0.9)#这行是最最关键的一句代码，千万千万不要删除！
 with open('data.csv', 'w', newline='') as file:
     writer = csv.writer(file)
     for row in data:
