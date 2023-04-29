@@ -22,7 +22,7 @@ for i in range(1,math.ceil(fullpage/50)+1):
             f.write(msg+"\n")
     except:
         print("done")
-    t.sleep(0.8)#这行是最最关键的一句代码，千万千万不要删除！
+    t.sleep(0.9)#这行是最最关键的一句代码，千万千万不要删除！
 f.close()
 data=[]
 f=open("a.txt","r")
@@ -34,7 +34,7 @@ for i in que:
     msg=got.text.split('window._feInjection = JSON.parse(decodeURIComponent("')[1].split('            window._feConfigVersion =')[0]
     temp2=u.unquote(msg)
     msg=temp2.split('},"acceptSolution":')[1].split('},"')[0]
-    t.sleep(0.8)#这行是最最关键的一句代码，千万千万不要删除！
+    t.sleep(0.9)#这行是最最关键的一句代码，千万千万不要删除！
     got2=r.get("https://www.luogu.com.cn/problem/{}".format(i), headers=headers,cookies=cookies)
     msg2=got2.text.split('window._feInjection = JSON.parse(decodeURIComponent("')[1].split('            window._feConfigVersion =')[0]
     temp3=u.unquote(msg2)
@@ -43,7 +43,7 @@ for i in que:
         print(i)
     else:
         data.append(["P",i,0,temp2.split('"difficulty":')[1].split(',')[0],temp3.split(',"tags":')[1].split(',"')[0].replace('"', '')])
-    t.sleep(0.8)#这行是最最关键的一句代码，千万千万不要删除！
+    t.sleep(0.9)#这行是最最关键的一句代码，千万千万不要删除！
 with open('data.csv', 'w', newline='') as file:
     writer = csv.writer(file)
     for row in data:
