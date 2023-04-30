@@ -27,6 +27,7 @@ f.close()
 data=[]
 f=open("a.txt","r")
 que=f.read().split("\n")
+print("done")
 for i in que:
     if i=='':
         break
@@ -46,6 +47,7 @@ for i in que:
         t.sleep(0.8)#这行是最最关键的一句代码，千万千万不要删除！
     except:
         print(i)
+print("done")
 with open('data.csv', 'w', newline='') as file:
     writer = csv.writer(file)
     for row in data:
